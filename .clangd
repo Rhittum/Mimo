@@ -1,0 +1,7 @@
+CompileFlags:
+  Add: [
+    "-I/usr/include/",
+    "-include", "linux/nolibc.h",
+    "-nostdlib",
+    "-fno-stack-protector"
+  ]
