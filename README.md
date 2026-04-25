@@ -1,22 +1,33 @@
-Mimo 🛰️
+## Mimo
 
-A tiny, 3-instruction bytecode interpreter built with Freestanding C. It bypasses glibc entirely, using raw x86_64 syscalls to talk to the Linux kernel for a sub-10KB binary footprint.
-How it works:
+My Attempt to make a compiler smaller than BrainFuck. lol
 
-    > : Move the bit pointer (wraps at 8).
+# Syntax
+v2 is basically like BrainFuck, except it uses a state variable to change the forward/backward movement and increment/decrement behaviour simultaneously.
 
-    + : Flip the bit at the current pointer.
+```
+^: Flip state
+>: Move forward/backward based on ^
+_: Increment/Decrement based on ^
+,: stdin/character input
+':': checkpoint
+?: Jump to the corresponding ':' if buffer isn't '0'
+.: stdout/print
 
-    . : Print the buffer as ASCII and reset everything.
+Everything Else: ignored, unprocessed. Could be used as comments.
+```
 
-Usage:
+*Note: v1 was about bit manipulation in an 8-bit size character buffer. But because of limited size (8-bit), it can't be considered as "Turing complete/equivalent" so I moved to a long array buffer.*
 
-    Build it:
-    Bash
+# Example
+```
+_____:>_____^>_^?>^_.
+^>______:>>___:^>^___>^_^?^>>_^?>___.
+>______:>^______>_^?>^__.
+```
+refer to: `test.mimo`
 
-    gcc -nostdlib -static -Os -s -fno-stack-protector tiny_mimo.c -o mimo
-
-    Run your code:
-    Bash
-
-    ./mimo input.mimo
+Output:
+```
+# Hi
+```

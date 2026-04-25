@@ -1,39 +1,32 @@
 #include<stdio.h>
-#include <string.h>
 
 int main(int argc,char* argv[]){
 	if(argc<2) return 1;
 	FILE *fp=fopen(argv[1],"r");
 
-	int buf[300];
-	memset(buf,48,300);
+	unsigned char buf=0;
 
 	long jump=-1, stack[32];
-	int ptr=0, c, sp=0, mov=1;
+	int ptr=0, c, sp=0;
 	while((c=fgetc(fp)) != EOF) {
 		switch(c) {
 			case '>':
-				mov==1?ptr++:ptr--;
+				ptr=(ptr+1)%8;
 				break;
-			case '_':
-				buf[ptr]=(mov==1?++buf[ptr]:--buf[ptr])%256;
+			case '+':
+				buf^=1<<(7-ptr);
 				break;
 			case ':':
 				stack[sp++]=jump=ftell(fp);
 				break;
 			case '?':
-				if (buf[ptr]>48 && jump!=-1){
+				if (buf>48 && jump!=-1){
+					buf--;
 					fseek(fp, stack[sp-1], SEEK_SET);
 				} else if (sp>0) sp--;
 				break;
-			case '^':
-				mov=-mov;
-				break;
-			case ',':
-				buf[ptr]=getchar();
-				break;
 			case '.':
-				putchar(buf[ptr]);
+				putchar(buf);
 				break;
 		}
 	}
