@@ -1,8 +1,8 @@
-## Mimo
+# Mimo
 
 My Attempt to make a compiler smaller than BrainFuck. lol
 
-# Syntax
+## Syntax
 v2 is basically like BrainFuck, except it uses a state variable to change the forward/backward movement and increment/decrement behaviour simultaneously.
 
 ```
@@ -19,7 +19,7 @@ Everything Else: ignored, unprocessed. Could be used as comments.
 
 *Note: v1 was about bit manipulation in an 8-bit size character buffer. But because of limited size (8-bit), it can't be considered as "Turing complete/equivalent" so I moved to a long array buffer.*
 
-# Example
+## Example
 ```
 _____:>_____^>_^?>^_.
 ^>______:>>___:^>^___>^_^?^>>_^?>___.
